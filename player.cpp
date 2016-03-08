@@ -10,7 +10,7 @@ Player::Player(Side side) {
     testingMinimax = false;
 	Board *current = new Board();
 	Side mySide = side;
-	Move *my-> new Move();
+	Move *my = new Move(0,0);
 }
 
 /*
@@ -36,7 +36,13 @@ Player::~Player()
 Move *Player::doMove(Move *opponentsMove, int msLeft) 
 {
 	std::cerr << "hi" << std::endl;
-	current -> doMove(opponentsMove, 
-	
-	return NULL;
+	current -> doMove(opponentsMove, mySide);
+	if(!current->hasMoves(mySide))
+	{
+		return NULL;
+	}
+	else
+	{
+		
+	}
 }
