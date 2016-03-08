@@ -64,14 +64,6 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
 			}
 		}
 	}
-	/**
-	for (unsigned int i = 0; i < possible.size(); i++)
-	{
-		std::cerr << "printing possible" << std::endl;
-		std::cerr << possible[i]->getX() << " " << possible[i]->getY() << std::endl;
-	}
-	*/
-	
 	
 	int maxscore = -1000;
 	for (int i = 0; i < (int) possible.size(); i++)
@@ -92,7 +84,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
 		if ((x == 0 && y == 0) || (x == 0 && y == 7) || \
 		(x == 7 && y == 0) || (x == 7 && y == 7))
 		{
-			score *= 14;
+			score *= 31;
 		}
 		// Bad edge cases
 		else if ((x == 1 && y == 0) || (x == 6 && y == 0) || \
@@ -100,22 +92,21 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
 		(x == 0 && y == 6) || (x == 7 && y == 6) || \
 		(x == 1 && y == 7) || (x == 6 && y == 7))
 		{
-			score *= -3;
+			score *= -9;
 		}
 		// Good edge cases
 		else if ((x == 0) || (x == 7) || (y == 0) || (y == 7))
 		{
-			score *= 4;
+			score *= 12;
 		}
 		// Really bad corner giving moves
 		else if ((x == 1 && y == 1) || (x == 6 && y == 6) || \
 		(x == 1 && y == 6) || (x == 6 && y == 1))
 		{
-			score *= -12;
+			score *= -29;
 		}
 		if (score > maxscore)
 		{
-			std::cerr << "score is " << score << std::endl;
 			maxscore = score;
 			my = possible[i];
 		}
