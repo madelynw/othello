@@ -10,7 +10,6 @@ Player::Player(Side side) {
     testingMinimax = false;
 	Board *current = new Board();
 	Side mySide = side;
-	Move *my = new Move(0,0);
 }
 
 /*
@@ -47,6 +46,11 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
 		{
 			for(int y = 0; y < 8; y++)
 			{
+				Move *my = new Move(x,y);
+				if(current -> checkMove(my, mySide))
+				{
+					return my;
+				}
 			}
 		}
 	}
