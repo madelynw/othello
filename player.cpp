@@ -36,20 +36,21 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
 {
 	Move *my = new Move(0,0);
 	Side otherSide = WHITE;
+	std::vector<Move*> possible;
+	int score;
 
 	if(mySide == WHITE)
 	{
 		otherSide = BLACK;
 	}
-	current -> doMove(opponentsMove, otherSide); //make this opponent side
+	
+	current -> doMove(opponentsMove, otherSide);
 	if(!(current->hasMoves(mySide)))
 	{
-		std::cerr << "hi" << std::endl;
 		return NULL;
 	}
 	else
 	{
-		std::cerr << "has moves!" << std::endl;
 		for(int x = 0; x < 8; x++)
 		{
 			for(int y = 0; y < 8; y++)
@@ -57,11 +58,68 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
 				*my = Move(x,y);
 				if(current -> checkMove(my, mySide))
 				{
-					current -> doMove(my, mySide);
-					return my;
+					Move *holder = new Move(my->getX(), my->getY());
+					possible.push_back(holder);
 				}
 			}
 		}
 	}
+	/**
+	for (unsigned int i = 0; i < possible.size(); i++)
+	{
+		std::cerr << "printing possible" << std::endl;
+		std::cerr << possible[i]->getX() << " " << possible[i]->getY() << std::endl;
+	}
+	*/
+	
+	
+	int maxscore = -1000;
+	for (int i = 0; i < (int) possible.size(); i++)
+	{	
+		// Create testboard to test possible moves.
+		testboard = current->copy();
+		testboard->doMove(possible[i], mySide);
+		
+		// Calculate initial score.
+		score = testboard->count(mySide) - testboard->count(otherSide);
+		
+		// Get x and y values of possible move.
+		int x = possible[i]->getX();
+		int y = possible[i]->getY();
+		
+		// Weight the scores based on the move.
+		// Corner cases
+		if ((x == 0 && y == 0) || (x == 0 && y == 7) || \
+		(x == 7 && y == 0) || (x == 7 && y == 7))
+		{
+			score *= 14;
+		}
+		// Bad edge cases
+		else if ((x == 1 && y == 0) || (x == 6 && y == 0) || \
+		(x == 0 && y == 1) || (x == 7 && y == 1) || \
+		(x == 0 && y == 6) || (x == 7 && y == 6) || \
+		(x == 1 && y == 7) || (x == 6 && y == 7))
+		{
+			score *= -3;
+		}
+		// Good edge cases
+		else if ((x == 0) || (x == 7) || (y == 0) || (y == 7))
+		{
+			score *= 4;
+		}
+		// Really bad corner giving moves
+		else if ((x == 1 && y == 1) || (x == 6 && y == 6) || \
+		(x == 1 && y == 6) || (x == 6 && y == 1))
+		{
+			score *= -12;
+		}
+		if (score > maxscore)
+		{
+			std::cerr << "score is " << score << std::endl;
+			maxscore = score;
+			my = possible[i];
+		}
+	}
+	current -> doMove(my, mySide);
 	return my;
 }

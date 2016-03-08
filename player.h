@@ -4,6 +4,7 @@
 #include <iostream>
 #include "common.h"
 #include "board.h"
+#include <vector>
 using namespace std;
 
 class Player {
@@ -12,6 +13,7 @@ public:
     Player(Side side);
     ~Player();
     Board *current;
+    Board *testboard;
     Side mySide;
     Move *doMove(Move *opponentsMove, int msLeft);
 
