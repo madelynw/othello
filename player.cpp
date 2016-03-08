@@ -34,8 +34,9 @@ Player::~Player()
  */
 Move *Player::doMove(Move *opponentsMove, int msLeft) 
 {
+	Move *my = new Move(0,0);
 	std::cerr << "hi" << std::endl;
-	current -> doMove(opponentsMove, mySide);
+	current -> doMove(opponentsMove, mySide); //make this opponent side
 	if(!current->hasMoves(mySide))
 	{
 		return NULL;
@@ -46,12 +47,13 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
 		{
 			for(int y = 0; y < 8; y++)
 			{
-				Move *my = new Move(x,y);
+				my = new Move(x,y);
 				if(current -> checkMove(my, mySide))
 				{
-					return my;
+					break;
 				}
 			}
 		}
 	}
+	return my;
 }
