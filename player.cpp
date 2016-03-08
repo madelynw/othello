@@ -65,7 +65,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
 		}
 	}
 	
-	int maxscore = -1000;
+	int maxscore = -10000;
 	for (int i = 0; i < (int) possible.size(); i++)
 	{	
 		// Create testboard to test possible moves.
