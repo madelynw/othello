@@ -8,8 +8,8 @@
 Player::Player(Side side) {
     // Will be set to true in test_minimax.cpp.
     testingMinimax = false;
-	Board *current = new Board();
-	Side mySide = side;
+	current = new Board();
+	mySide = side;
 }
 
 /*
@@ -42,21 +42,23 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
 		otherSide = BLACK;
 	}
 	current -> doMove(opponentsMove, otherSide); //make this opponent side
-	std::cerr << "hi" << std::endl;
-	if(!current->hasMoves(mySide))
+	if(!(current->hasMoves(mySide)))
 	{
+		std::cerr << "hi" << std::endl;
 		return NULL;
 	}
 	else
 	{
+		std::cerr << "has moves!" << std::endl;
 		for(int x = 0; x < 8; x++)
 		{
 			for(int y = 0; y < 8; y++)
 			{
-				my = new Move(x,y);
+				*my = Move(x,y);
 				if(current -> checkMove(my, mySide))
 				{
-					break;
+					current -> doMove(my, mySide);
+					return my;
 				}
 			}
 		}
