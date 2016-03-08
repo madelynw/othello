@@ -65,7 +65,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
 		}
 	}
 	
-	int maxscore = -10000;
+	int maxscore = -100000000;
 	for (int i = 0; i < (int) possible.size(); i++)
 	{	
 		// Create testboard to test possible moves.
@@ -84,7 +84,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
 		if ((x == 0 && y == 0) || (x == 0 && y == 7) || \
 		(x == 7 && y == 0) || (x == 7 && y == 7))
 		{
-			score *= 31;
+			score *= 123;
 		}
 		// Bad edge cases
 		else if ((x == 1 && y == 0) || (x == 6 && y == 0) || \
@@ -92,18 +92,18 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
 		(x == 0 && y == 6) || (x == 7 && y == 6) || \
 		(x == 1 && y == 7) || (x == 6 && y == 7))
 		{
-			score *= -9;
+			score *= -23;
 		}
 		// Good edge cases
 		else if ((x == 0) || (x == 7) || (y == 0) || (y == 7))
 		{
-			score *= 12;
+			score *= 29;
 		}
 		// Really bad corner giving moves
 		else if ((x == 1 && y == 1) || (x == 6 && y == 6) || \
 		(x == 1 && y == 6) || (x == 6 && y == 1))
 		{
-			score *= -29;
+			score *= -100;
 		}
 		if (score > maxscore)
 		{
