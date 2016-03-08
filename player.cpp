@@ -35,8 +35,14 @@ Player::~Player()
 Move *Player::doMove(Move *opponentsMove, int msLeft) 
 {
 	Move *my = new Move(0,0);
+	Side otherSide = WHITE;
+
+	if(mySide == WHITE)
+	{
+		otherSide = BLACK;
+	}
+	current -> doMove(opponentsMove, otherSide); //make this opponent side
 	std::cerr << "hi" << std::endl;
-	current -> doMove(opponentsMove, mySide); //make this opponent side
 	if(!current->hasMoves(mySide))
 	{
 		return NULL;
