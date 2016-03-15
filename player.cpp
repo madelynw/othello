@@ -84,7 +84,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
 		if ((x == 0 && y == 0) || (x == 0 && y == 7) || \
 		(x == 7 && y == 0) || (x == 7 && y == 7))
 		{
-			score *= 123;
+			score *= 124;
 		}
 		// Bad edge cases
 		else if ((x == 1 && y == 0) || (x == 6 && y == 0) || \
@@ -92,18 +92,18 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
 		(x == 0 && y == 6) || (x == 7 && y == 6) || \
 		(x == 1 && y == 7) || (x == 6 && y == 7))
 		{
-			score *= -23;
+			score *= -24;
 		}
 		// Good edge cases
 		else if ((x == 0) || (x == 7) || (y == 0) || (y == 7))
 		{
-			score *= 40;
+			score *= 41;
 		}
 		// Really bad corner giving moves
 		else if ((x == 1 && y == 1) || (x == 6 && y == 6) || \
 		(x == 1 && y == 6) || (x == 6 && y == 1))
 		{
-			score *= -100;
+			score *= -101;
 		}
 		if (score > maxscore)
 		{
